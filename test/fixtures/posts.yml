@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  short_url: MyString
+  note: MyText
+  redirect: false
+
+two:
+  short_url: MyString
+  note: MyText
+  redirect: false
