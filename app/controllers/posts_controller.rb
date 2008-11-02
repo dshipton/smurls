@@ -23,9 +23,13 @@ class PostsController < ApplicationController
 
   def find_shorty
     @post = Post.find(params[:short_url])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @post }
+    if @post.redirect
+      redirect_to @post.note
+    else
+       respond_to do |format|
+         format.html # show.html.erb
+         format.xml  { render :xml => @post }
+       end
     end
   end
 
