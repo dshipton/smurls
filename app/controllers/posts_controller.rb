@@ -21,6 +21,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def find_shorty
+    @post = Post.find(params[:short_url])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @post }
+    end
+  end
+
   # GET /posts/new
   # GET /posts/new.xml
   def new

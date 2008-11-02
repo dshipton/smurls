@@ -36,6 +36,7 @@ ActionController::Routing::Routes.draw do |map|
   # map.root :controller => "welcome"
 
   # See how all your routes lay out with "rake routes"
+  map.connect ":short_url", :controller => "posts", :action => "find_shorty"
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
