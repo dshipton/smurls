@@ -1,3 +1,4 @@
+require 'pp'
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.xml
@@ -22,7 +23,16 @@ class PostsController < ApplicationController
   end
 
   def find_shorty
-    @post = Post.find(params[:short_url])
+    cache_lookup = $smurlcache[params[:short_url]]
+    @post = nil
+
+    if cache_lookup.nil?
+      @post = Post.find(params[:short_url])
+      $smurlcache[params[:short_url]] = { :note => @post.note, :redirect => @post.redirect }
+    else
+      @post = Post.new( :redirect => cache_lookup[:redirect], :note => cache_lookup[:note] )
+      logger.info($smurlcache.stats.pretty_inspect)
+    end
     if @post.redirect
       redirect_to @post.note
     else
